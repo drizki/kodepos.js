@@ -33,9 +33,13 @@ module.exports = {
 
     // 4. Set results
     results.count = pool.length;
-    pool.length > limit
-      ? (results.results = pool.slice(0, limit))
-      : (results.results = pool);
+    if (limit == 0) {
+      results.results = pool;
+    } else {
+      pool.length > limit
+        ? (results.results = pool.slice(0, limit))
+        : (results.results = pool);
+    }
 
     // 5. Return results
     return results;

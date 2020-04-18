@@ -1,5 +1,7 @@
 ![kodepos.js](https://i.ibb.co/4fSV6vV/kodepos-js.png)
 
+[![kodepos.js](https://img.shields.io/npm/dm/kodepos.js)](https://www.npmjs.com/package/kodepos.js)
+
 A simple Node.js module to search postal code (kode pos) in Indonesia.
 
 ### Installation
@@ -19,10 +21,10 @@ const search = kodepos.search("bandung", 100);
 console.log(search);
 ```
 
-| Method | Param | Type   | Required | Default |
-| ------ | ----- | ------ | -------- | ------- |
-| search | query | String | True     | None    |
-|        | limit | Number | False    | 10      |
+| Method | Param | Type   | Required | Default | Notes                    |
+| ------ | ----- | ------ | -------- | ------- | ------------------------ |
+| search | query | String | True     | None    |                          |
+|        | limit | Number | False    | 10      | Set 0 to get all results |
 
 ### Returns
 
