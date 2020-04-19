@@ -44,4 +44,47 @@ module.exports = {
     // 5. Return results
     return results;
   },
+
+  searchBy(scope, query, limit = 10) {
+    if (j.not.string(query))
+      throw new TypeError("Param query must be a string");
+    if (j.not.string(scope))
+      throw new TypeError("Param query must be a string");
+    if (j.not.number(limit))
+      throw new TypeError("Param limit must be a number");
+
+    let results = { count: 0, results: [] };
+    let keys = [];
+    let pool = [];
+
+    query = query.toString().toLowerCase();
+
+    if (
+      scope === "province" ||
+      scope === "city" ||
+      scope === "district" ||
+      scope === "urban"
+    )
+      this.data.filter((item, index) => {
+        if (item[scope].toLowerCase().indexOf(query) >= 0) keys.push(index);
+      });
+    else throw new Error("Invalid scope supplied.");
+
+    keys.forEach((index) => {
+      pool.push(this.data[index]);
+    });
+
+    // 4. Set results
+    results.count = pool.length;
+    if (limit == 0) {
+      results.results = pool;
+    } else {
+      pool.length > limit
+        ? (results.results = pool.slice(0, limit))
+        : (results.results = pool);
+    }
+
+    // 5. Return results
+    return results;
+  },
 };

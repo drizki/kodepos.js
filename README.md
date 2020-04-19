@@ -21,10 +21,13 @@ const search = kodepos.search("bandung", 100);
 console.log(search);
 ```
 
-| Method | Param | Type   | Required | Default | Notes                    |
-| ------ | ----- | ------ | -------- | ------- | ------------------------ |
-| search | query | String | True     | None    |                          |
-|        | limit | Number | False    | 10      | Set 0 to get all results |
+| Method   | Param | Type   | Required | Default | Notes                               |
+| -------- | ----- | ------ | -------- | ------- | ----------------------------------- |
+| search   | query | String | True     | None    |                                     |
+|          | limit | Number | False    | 10      | Set 0 to get all results            |
+| searchBy | scope | String | True     | None    | province / city / urban / disctrict |
+|          | query | String | True     | None    |                                     |
+|          | limit | Number | False    | 10      | Set 0 to get all results            |
 
 ### Returns
 
