@@ -5,13 +5,13 @@ module.exports = {
   data: JSON.parse(JSON.stringify(json)),
 
   /**
-   * Search the database using query and return object
-   * with its total count and matching elements.
+   * Search the database using query and then return object
    * @param {String} query
    * @param {Number} limit
+   * @param {Boolean} exact
    * @return {Object}
    */
-  search(query, limit = 10) {
+  search(query, limit = 10, exact = false) {
     // 1. Validate input
     if (j.not.string(query))
       throw new TypeError("Param query must be a string");
@@ -27,7 +27,11 @@ module.exports = {
     this.data.forEach((o) => {
       for (let k in o) {
         if (!o.hasOwnProperty(k) || !o[k]) continue;
-        if (o[k].toString().toLowerCase().indexOf(query) !== -1) pool.push(o);
+        if (exact) {
+          if (o[k].toString().toLowerCase() === query) pool.push(o);
+        } else {
+          if (o[k].toString().toLowerCase().indexOf(query) >= 0) pool.push(o);
+        }
       }
     });
 
@@ -45,7 +49,15 @@ module.exports = {
     return results;
   },
 
-  searchBy(scope, query, limit = 10) {
+  /**
+   * Search the database (scoped) using query and then return object
+   * @param {String} scope
+   * @param {String} query
+   * @param {Number} limit
+   * @param {Boolean} exact
+   * @return {Object}
+   */
+  searchBy(scope, query, limit = 10, exact = false) {
     if (j.not.string(query))
       throw new TypeError("Param query must be a string");
     if (j.not.string(scope))
@@ -66,7 +78,11 @@ module.exports = {
       scope === "urban"
     )
       this.data.filter((item, index) => {
-        if (item[scope].toLowerCase().indexOf(query) >= 0) keys.push(index);
+        if (exact) {
+          if (item[scope].toLowerCase() === query) keys.push(index);
+        } else {
+          if (item[scope].toLowerCase().indexOf(query) >= 0) keys.push(index);
+        }
       });
     else throw new Error("Invalid scope supplied.");
 

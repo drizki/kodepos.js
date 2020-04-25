@@ -14,20 +14,42 @@ Use this module in server environment as it contain relatively large json datase
 
 ### Usage
 
+#### kodepos.search()
+
 ```javascript
 const kodepos = require("kodepos.js");
 
-const search = kodepos.search("bandung", 100);
+const query = "bandung";
+const limit = 10;
+const exact = false; // Should match query? if false, LIKE (similar in SQL) method is used.
+
+const search = kodepos.search(query, limit, exact);
 console.log(search);
 ```
 
-| Method   | Param | Type   | Required | Default | Notes                               |
-| -------- | ----- | ------ | -------- | ------- | ----------------------------------- |
-| search   | query | String | True     | None    |                                     |
-|          | limit | Number | False    | 10      | Set 0 to get all results            |
-| searchBy | scope | String | True     | None    | province / city / urban / disctrict |
-|          | query | String | True     | None    |                                     |
-|          | limit | Number | False    | 10      | Set 0 to get all results            |
+#### kodepos.searchBy()
+
+```javascript
+const kodepos = require("kodepos.js");
+
+const scope = "city"; // Check table below for available values
+const query = "bandung";
+const limit = 10;
+const exact = true; // Should match query? if false, LIKE (similar in SQL) method is used.
+
+const searchBy = kodepos.search(scope, query, limit, exact);
+console.log(searchBy);
+```
+
+| Method     | Param | Type   | Required | Default | Description                         |
+| ---------- | ----- | ------ | -------- | ------- | ----------------------------------- |
+| search()   | query | String | True     | None    | The query of search operation       |
+|            | limit | Number | False    | 10      | Results limit. Set 0 to return all  |
+|            | exact | Bool   | False    | False   | Should search to match query?       |
+| searchBy() | scope | String | True     | None    | province / city / urban / disctrict |
+|            | query | String | True     | None    | The query of search operation       |
+|            | limit | Number | False    | 10      | Results limit. Set 0 to return all  |
+|            | exact | Bool   | False    | False   | Should search to match query?       |
 
 ### Returns
 
